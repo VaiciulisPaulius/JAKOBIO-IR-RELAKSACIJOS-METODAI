@@ -34,6 +34,8 @@ document.querySelector("#btn").addEventListener("click", (event) => {
     console.log(equation)
     console.log(acc)
 
+    let w = document.getElementById(`wNum`)?.valueAsNumber
+
     accurateSolutions = jakobioMetodas(equation, 200, -1);
     document.getElementById('generatorTableContainer').innerHTML = "";
     for(let i = 0; i < accurateSolutions.length; i++) {
@@ -41,7 +43,7 @@ document.querySelector("#btn").addEventListener("click", (event) => {
     }
     console.log(accurateSolutions)
 
-    let rezultatas = jakobioMetodas(equation, 1000, acc);
+    let rezultatas = metodas == "JakobioMetodas" ? jakobioMetodas(equation, 1000, acc) : relaksacijosMetodas(equation, 1000, acc, w);
     document.getElementById('generatorTableContainer').innerHTML += `<p>Rezultatas:</p>`
     for(let i = 0; i < rezultatas.length; i++) {
         document.getElementById('generatorTableContainer').innerHTML += `<p>x${i+1}: ${rezultatas[i]}</p>`
@@ -147,6 +149,8 @@ function jakobioMetodas(equation, itNum, accuracy) {
 
 function relaksacijosMetodas(equation, itNum, accuracy, w) {
     arr = equation;
+    console.log(equation)
+    console.log(w)
     let arrX = [];
 
     for(let i = 0; i < arr.length; i++) {
@@ -166,6 +170,19 @@ function relaksacijosMetodas(equation, itNum, accuracy, w) {
         firstIteration.push(0);
     }
 
+    let table = "<table>"
+    table += `<tr>
+    <th>Iteracijos num.</th>`
+
+    let rows = document.getElementById("rows").value;
+    rows = parseInt(rows)
+
+    for(let i = 1; i <= rows; i++) {
+        table += `<th>x${i}</th>`
+    }
+    
+    table += `<th>dabartinė paklaida</th>`
+
     // let secondIteration = [];
     // for(let i = 0; i < arrX.length; i++) {
     //     let sum = 0;
@@ -179,6 +196,8 @@ function relaksacijosMetodas(equation, itNum, accuracy, w) {
     //console.log(secondIteration)
     let iteration = firstIteration;
     for(let it = 0; it <= itNum; it++) {
+        table += `<tr>
+        <td>${it}</td>`;
         //if(itNum == -1) it = 0;
         //let iterationTemp = iteration;
         for(let i = 0; i < arrX.length; i++) {
@@ -194,6 +213,11 @@ function relaksacijosMetodas(equation, itNum, accuracy, w) {
             iteration[i] += (sum - iteration[i]) * w;
             console.log("iteration[i] = " + sum + " * " + w)
         }
+
+        for(let i = 0; i < iteration.length; i++) {
+            table += `<td>${iteration[i]}</td>`;
+        }
+
         console.log(it + "-th iteration: ")
         console.log(iteration)
 
@@ -204,15 +228,21 @@ function relaksacijosMetodas(equation, itNum, accuracy, w) {
                 let acc = Math.abs(iteration[i] - accurateSolutions[i]);
                 if(acc > accMax) accMax = acc;
             }
+            console.log("1")
             //console.log("Paklaida: " + accMax)
+            table += `<td>${accMax}</td>`;
             if(accMax <= accuracy) {
                 let accuracyInverse = 1 / accuracy;
                 for(let i = 0; i < iteration.length; i++) {
                     iteration[i] = Math.round(iteration[i] * accuracyInverse) / accuracyInverse
+                    console.log(iteration[i]);
                 }
+                console.log("3")
                 return iteration;
             }
         }
+        document.getElementById('generatorTableContainer').innerHTML = table;
     }
+    console.log("2")
     return iteration
 }

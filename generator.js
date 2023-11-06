@@ -1,3 +1,4 @@
+let metodas = "JakobioMetodas";
 generateSystem()
 function generateSystem() {
     document.getElementById('generatorContainer').innerHTML = "";
@@ -25,4 +26,19 @@ function generateSystem() {
 }
 document.querySelector("#rows").addEventListener("change", (event) => {
     generateSystem();
+});
+
+document.querySelector("#metodas").addEventListener("change", (event) => {
+    let val = document.querySelector("#metodas").value;
+    if(val == "RelaksacijosMetodas") {
+        document.querySelector("#w").innerHTML = `
+        <p class="columnIndicator">w:</p>
+        <input type="number" id="wNum">
+        `
+        metodas = "RelaksacijosMetodas"
+    }
+    else {
+        document.querySelector("#w").innerHTML = ""
+        metodas = "JakobioMetodas"
+    }
 });
