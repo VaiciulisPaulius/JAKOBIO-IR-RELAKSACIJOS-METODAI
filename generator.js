@@ -3,7 +3,7 @@ function generateSystem() {
     document.getElementById('generatorContainer').innerHTML = "";
     let rows = document.getElementById("rows").value;
     //let place = document.getElementById("generatorContainer");
-    console.log(rows)
+    rows = parseInt(rows)
     for(let i = 1; i <= rows; i++) {
         document.getElementById('generatorContainer').innerHTML += `<div id="container-${i}" class="container"></div>`
         for(let j = 1; j <= rows; j++) {
@@ -14,10 +14,11 @@ function generateSystem() {
             </div>
             `
         }
+        let a = rows + 1;
         document.getElementById(`container-${i}`).innerHTML += `
             <div>
                 <p class="columnIndicator"> = </p>
-                <input class="sysNum" type="number" id="column-${i}-${i}">
+                <input class="sysNum" type="number" id="column-${i}-${a}">
             </div>
         `
     }

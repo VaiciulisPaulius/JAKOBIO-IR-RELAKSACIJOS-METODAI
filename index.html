@@ -14,39 +14,23 @@
     <p>tiesinės sistemos eiluciu</p>
     <input type="number" id="rows" value="3">
 
-    <div class="flex-container" id="generatorContainer">
-        <!-- <div>
-        <p class="columnIndicator">x1</p>
-        <input class="sysNum" type="number" id="column-1-1">
-        </div>
-        <div>
-        <p class="columnIndicator">x2</p>
-        <input class="sysNum" type="number" id="column-1-2">
-        </div>
-        <div>
-        <p class="columnIndicator">x3</p>
-        <input class="sysNum" type="number" id="column-1-3">
-        </div>
-        <div>
-            <p class="columnIndicator"> = </p>
-            <input class="sysNum" type="number" id="column-1-3">
-        </div>
-        <div>
-        <p class="columnIndicator">x1</p>
-        <input class="sysNum" type="number" id="column-1-1">
-        </div>
-        <div>
-        <p class="columnIndicator">x2</p>
-        <input class="sysNum" type="number" id="column-1-2">
-        </div>
-        <div>
-        <p class="columnIndicator">x3</p>
-        <input class="sysNum" type="number" id="column-1-3">
-        </div>
-        <div>
-            <p class="columnIndicator"> = </p>
-            <input class="sysNum" type="number" id="column-1-3">
-        </div> -->
+    <div class="flex-container" id="generatorContainer"></div>
+
+    <p class="columnIndicator">Paklaida:</p>
+    <input type="number" id="paklaida">
+
+    <div>
+    <p class="columnIndicator">Pasirinkite sprendimo būda:</p>
+    <select name="metodas" id="metodas">
+        <option value="Jakobio metodas">Jakobio metodas</option>
+        <option value="Relaksacijos metodas">Relaksacijos metodas</option>
+    </select>
+    </div>
+
+    <button type="button" id="btn">Išspręsti</button>
+
+    <div id="generatorTableContainer">
+
     </div>
 
     <script src="generator.js"></script>

@@ -16,13 +16,39 @@ let arrF = [
     [0, -0.95, 1, 0.05]
 ]
 
-let accurateSolutions = jakobioMetodas(arrF, 200, -1);
-for(let i = 0; i < accurateSolutions.length; i++) {
-    accurateSolutions[i] = +accurateSolutions[i].toFixed(3);
-}
-console.log(accurateSolutions)
+let accurateSolutions;
 
-console.log(relaksacijosMetodas(arrF, 23, -1, 1.5));
+document.querySelector("#btn").addEventListener("click", (event) => {
+    let equation = [];
+    let rows = document.getElementById("rows").valueAsNumber;
+    rows = parseInt(rows)
+    for(let i = 1; i <= rows; i++) {
+        let row = [];
+        for(let j = 1; j <= rows+1; j++) {
+            let num = document.getElementById(`column-${i}-${j}`).valueAsNumber
+            row.push(num)
+        }
+        equation.push(row);
+    }
+    let acc = document.getElementById(`paklaida`).valueAsNumber
+    console.log(equation)
+    console.log(acc)
+
+    accurateSolutions = jakobioMetodas(equation, 200, -1);
+    document.getElementById('generatorTableContainer').innerHTML = "";
+    for(let i = 0; i < accurateSolutions.length; i++) {
+        accurateSolutions[i] = +accurateSolutions[i].toFixed(3);
+    }
+    console.log(accurateSolutions)
+
+    let rezultatas = jakobioMetodas(equation, 1000, acc);
+    document.getElementById('generatorTableContainer').innerHTML += `<p>Rezultatas:</p>`
+    for(let i = 0; i < rezultatas.length; i++) {
+        document.getElementById('generatorTableContainer').innerHTML += `<p>x${i+1}: ${rezultatas[i]}</p>`
+    }
+});
+
+//console.log(relaksacijosMetodas(arrF, 23, -1, 1.5));
 
 //jakobioMetodas(arrC, 5)
 
@@ -59,8 +85,24 @@ function jakobioMetodas(equation, itNum, accuracy) {
 
     //console.log(secondIteration)
     let iteration = firstIteration;
+    let table = "<table>"
+    table += `<tr>
+    <th>Iteracijos num.</th>`
+
+    let rows = document.getElementById("rows").value;
+    rows = parseInt(rows)
+
+    for(let i = 1; i <= rows; i++) {
+        table += `<th>x${i}</th>`
+    }
+    
+    table += `<th>dabartinė paklaida</th>`
+
+
     for(let it = 0; it <= itNum; it++) {
-        //if(itNum == -1) it = 0;
+        table += `<tr>
+        <td>${it}</td>`;
+        if(itNum == -1) it = 0;
         let iterationTemp = [];
         for(let i = 0; i < arrX.length; i++) {
             let sum = 0;
@@ -74,6 +116,9 @@ function jakobioMetodas(equation, itNum, accuracy) {
             //console.log("sum += " + arrX[i][arrX[i].length-1])
             iterationTemp.push(sum);
         }
+        for(let i = 0; i < iteration.length; i++) {
+            table += `<td>${iteration[i]}</td>`;
+        }
         //console.log(it + "-th iteration: ")
         //console.log(iteration)
         iteration = iterationTemp;
@@ -85,7 +130,8 @@ function jakobioMetodas(equation, itNum, accuracy) {
                 let acc = Math.abs(iteration[i] - accurateSolutions[i]);
                 if(acc > accMax) accMax = acc;
             }
-            console.log("Paklaida: " + accMax)
+           // console.log("Paklaida: " + accMax)
+            table += `<td>${accMax}</td>`;
             if(accMax <= accuracy) {
                 let accuracyInverse = 1 / accuracy;
                 for(let i = 0; i < iteration.length; i++) {
@@ -94,6 +140,7 @@ function jakobioMetodas(equation, itNum, accuracy) {
                 return iteration;
             }
         }
+        document.getElementById('generatorTableContainer').innerHTML = table;
     }
     return iteration
 }
