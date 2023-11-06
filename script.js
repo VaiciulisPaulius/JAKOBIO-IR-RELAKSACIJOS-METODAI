@@ -55,6 +55,7 @@ document.querySelector("#btn").addEventListener("click", (event) => {
 //jakobioMetodas(arrC, 5)
 
 function jakobioMetodas(equation, itNum, accuracy) {
+    let accuracyInverse = 1 / accuracy;
     arr = equation;
     let arrX = [];
 
@@ -119,6 +120,7 @@ function jakobioMetodas(equation, itNum, accuracy) {
             iterationTemp.push(sum);
         }
         for(let i = 0; i < iteration.length; i++) {
+            iteration[i] = Math.round(iteration[i] * (accuracyInverse * 10)) / (accuracyInverse * 10)
             table += `<td>${iteration[i]}</td>`;
         }
         //console.log(it + "-th iteration: ")
@@ -132,13 +134,14 @@ function jakobioMetodas(equation, itNum, accuracy) {
                 let acc = Math.abs(iteration[i] - accurateSolutions[i]);
                 if(acc > accMax) accMax = acc;
             }
+            let accMaxRounded = Math.round(accMax * (accuracyInverse * 100)) / (accuracyInverse * 100)
            // console.log("Paklaida: " + accMax)
-            table += `<td>${accMax}</td>`;
+            table += `<td>${accMaxRounded}</td>`;
             if(accMax <= accuracy) {
-                let accuracyInverse = 1 / accuracy;
                 for(let i = 0; i < iteration.length; i++) {
-                    iteration[i] = Math.round(iteration[i] * accuracyInverse) / accuracyInverse
+                    iteration[i] = Math.round(iteration[i] * (accuracyInverse * 10)) / (accuracyInverse * 10)
                 }
+                document.getElementById('generatorTableContainer').innerHTML = table;
                 return iteration;
             }
         }
@@ -148,6 +151,7 @@ function jakobioMetodas(equation, itNum, accuracy) {
 }
 
 function relaksacijosMetodas(equation, itNum, accuracy, w) {
+    let accuracyInverse = 1 / accuracy;
     arr = equation;
     console.log(equation)
     console.log(w)
@@ -181,7 +185,7 @@ function relaksacijosMetodas(equation, itNum, accuracy, w) {
         table += `<th>x${i}</th>`
     }
     
-    table += `<th>dabartinė paklaida</th>`
+    table += `<th>paklaida</th>`
 
     // let secondIteration = [];
     // for(let i = 0; i < arrX.length; i++) {
@@ -215,6 +219,7 @@ function relaksacijosMetodas(equation, itNum, accuracy, w) {
         }
 
         for(let i = 0; i < iteration.length; i++) {
+            iteration[i] = Math.round(iteration[i] * (accuracyInverse * 10)) / (accuracyInverse * 10)
             table += `<td>${iteration[i]}</td>`;
         }
 
@@ -230,14 +235,15 @@ function relaksacijosMetodas(equation, itNum, accuracy, w) {
             }
             console.log("1")
             //console.log("Paklaida: " + accMax)
-            table += `<td>${accMax}</td>`;
+            let accMaxRounded = Math.round(accMax * (accuracyInverse * 100)) / (accuracyInverse * 100)
+            table += `<td>${accMaxRounded}</td>`;
             if(accMax <= accuracy) {
-                let accuracyInverse = 1 / accuracy;
                 for(let i = 0; i < iteration.length; i++) {
-                    iteration[i] = Math.round(iteration[i] * accuracyInverse) / accuracyInverse
+                    iteration[i] = Math.round(iteration[i] * (accuracyInverse * 10)) / (accuracyInverse * 10)
                     console.log(iteration[i]);
                 }
                 console.log("3")
+                document.getElementById('generatorTableContainer').innerHTML = table;
                 return iteration;
             }
         }

@@ -1,10 +1,10 @@
 .main-header {
-    text-align: center;
+    text-align: left;
     font-size: 2rem;
     margin-bottom: 5px;
 }
 .header-helper {
-    text-align: center;
+    text-align: left;
     margin-top: 0
 }
 .sysNum {

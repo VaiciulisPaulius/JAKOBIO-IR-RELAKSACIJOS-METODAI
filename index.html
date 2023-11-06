@@ -9,9 +9,9 @@
 </head>
 <body>
     <h1 class="main-header">Tiesinių lygčių sistemų skaičiuotuvas</h1>
-    <p class="header-helper">Naudojant Jakobio ir relaksacijos metodais</p>
-
-    <p>tiesinės sistemos eiluciu</p>
+    <p class="header-helper">Taikant Jakobio ir relaksacijos metodus</p>
+    <section>
+    <p>Tiesinės lygčių sistemos eilučių skaičius</p>
     <input type="number" id="rows" value="3">
 
     <div class="flex-container" id="generatorContainer"></div>
@@ -20,7 +20,7 @@
     <input type="number" id="paklaida">
 
     <div>
-    <p class="columnIndicator">Pasirinkite sprendimo būda:</p>
+    <p class="columnIndicator">Pasirinkite sprendimo būdą:</p>
     <select name="metodas" id="metodas">
         <option value="JakobioMetodas">Jakobio metodas</option>
         <option value="RelaksacijosMetodas">Relaksacijos metodas</option>
@@ -34,6 +34,7 @@
     <div id="generatorTableContainer">
 
     </div>
+    </section>
 
     <script src="generator.js"></script>
     <script src="script.js"></script>
